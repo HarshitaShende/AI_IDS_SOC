@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI IDS SOC Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>🛡️ AI IDS</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/analyzer">Analyzer</a>
+    <a href="/reports">Reports</a>
+    <a href="/research">Research Lab</a>
+</div>
+
+<div class="main dashboard-page">
+<h1 style="text-align:center">Live SOC Dashboard</h1>
+
+<div style="text-align:center">
+    <button class="btn" onclick="startLive()">Start Live Monitoring</button>
+    <button class="btn red" onclick="stopLive()">Stop</button>
+    <button class="btn red" onclick="injectAttack()">Inject DoS Attack</button>
+
+</div>
+<p id="status" style="text-align:center">Status: Idle</p>
+
+<div class="center-zone">
+    <div class="radar" id="radar"></div>
+
+    <div class="card live-card" id="livebox">
+        <h3>Live Traffic Analyzer</h3>
+        <div class="led"></div>
+        <p>Now Analyzing Packet #: <b id="pkt">0</b></p>
+        <p>Last Detected Attack: <b id="last">None</b></p>
+        <div class="terminal" id="terminal"></div>
+    </div>
+</div>
+
+<div class="stats">
+    <div class="stat">Normal<br><span id="normal">0</span></div>
+    <div class="stat">DoS<br><span id="dos">0</span></div>
+    <div class="stat">Probe<br><span id="probe">0</span></div>
+    <div class="stat">Other<br><span id="other">0</span></div>
+</div>
+
+<audio id="alertSound" src="{{ url_for('static', filename='alarm.mp3') }}"></audio>
+</div>
+
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+</body>
+</html>

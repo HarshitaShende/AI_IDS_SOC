@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Research Lab</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>🛡️ AI IDS</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/analyzer">Analyzer</a>
+    <a href="/reports">Reports</a>
+    <a href="/research">Research Lab</a>
+</div>
+
+<div class="main research-page">
+    <h1 style="text-align:center">Research & Comparative Analysis Lab</h1>
+
+    <div class="xai-grid">
+
+        <div class="card xai-card">
+            <h3>Model Accuracy Comparison</h3>
+            <canvas id="modelChart"></canvas>
+        </div>
+
+        <div class="card xai-card">
+            <h3>Top Feature Importance</h3>
+            <img src="{{ url_for('static', filename='feature_importance.png') }}" width="100%">
+        </div>
+
+    </div>
+
+    <div class="xai-grid">
+
+        <div class="card xai-card">
+            <h3>Attack Class Distribution</h3>
+            <img src="{{ url_for('static', filename='class_pie.png') }}" width="100%">
+        </div>
+
+        <div class="card xai-card">
+            <h3>Correlation Heatmap (EDA)</h3>
+            <img src="{{ url_for('static', filename='heatmap.png') }}" width="100%">
+        </div>
+
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='research.js') }}"></script>
+</body>
+</html>

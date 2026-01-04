@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI IDS SOC Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h1>🛡️ AI IDS – Live SOC Dashboard</h1>
+
+<button onclick="startMonitor()">Start Live Monitoring</button>
+
+<h2 id="live_status">Status: Idle</h2>
+
+<div class="grid">
+    <div class="card">Normal: <span id="normal">0</span></div>
+    <div class="card">DoS: <span id="dos">0</span></div>
+    <div class="card">Probe: <span id="probe">0</span></div>
+    <div class="card">Other Attacks: <span id="other">0</span></div>
+</div>
+
+<canvas id="attackChart" width="400" height="200"></canvas>
+
+<script>
+let stats = {Normal:0, DoS:0, Probe:0, Other:0};
+
+function startMonitor(){
+    fetch("/start_monitor");
+    document.getElementById("live_status").innerText="Status: Monitoring...";
+    setInterval(fetchLive,2000);
+}
+
+function fetchLive(){
+    fetch("/stream_predict")
+    .then(r=>r.json())
+    .then(data=>{
+        let a=data.attack;
+        if(a=="Normal") stats.Normal++;
+        else if(a=="DoS") stats.DoS++;
+        else if(a=="Probe") stats.Probe++;
+        else stats.Other++;
+
+        document.getElementById("normal").innerText=stats.Normal;
+        document.getElementById("dos").innerText=stats.DoS;
+        document.getElementById("probe").innerText=stats.Probe;
+        document.getElementById("other").innerText=stats.Other;
+        updateChart();
+    })
+}
+
+let ctx=document.getElementById("attackChart").getContext("2d");
+let chart=new Chart(ctx,{
+    type:"bar",
+    data:{
+        labels:["Normal","DoS","Probe","Other"],
+        datasets:[{label:"Live Attacks",data:[0,0,0,0]}]
+    }
+});
+
+function updateChart(){
+    chart.data.datasets[0].data=[
+        stats.Normal,stats.DoS,stats.Probe,stats.Other
+    ];
+    chart.update();
+}
+</script>
+
+</body>
+</html>

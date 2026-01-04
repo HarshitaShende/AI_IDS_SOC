@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Traffic Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>🛡️ AI IDS</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/analyzer">Analyzer</a>
+    <a href="/reports">Reports</a>
+    <a href="/research">Research Lab</a>
+
+</div>
+
+<div class="main analyzer-page">
+
+<h1 style="text-align:center">Explainable AI IDS Console</h1>
+
+<div class="card" style="max-width:600px;margin:auto;text-align:center">
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" required><br><br>
+        <button type="submit">Analyze Traffic</button>
+    </form>
+</div>
+
+{% if prediction %}
+<div class="cards">
+    <div class="card">Attack<br><b>{{ prediction }}</b></div>
+    <div class="card">Risk<br><b>{{ risk }}</b></div>
+    <div class="card">Score<br><b>{{ score }}/100</b></div>
+</div>
+
+<div class="xai-grid">
+    <div class="card xai-card">
+        <h2 style="text-align:center">Attack Probability Distribution</h2>
+        <canvas id="pie"></canvas>
+    </div>
+
+    <div class="card xai-card">
+        <h2 style="text-align:center">Feature Impact (SHAP)</h2>
+        <img src="{{ url_for('static', filename=explain_img) }}">
+    </div>
+</div>
+
+{% if report_file %}
+<div style="text-align:center;margin-top:30px">
+    <a href="/download/{{ report_file.split('/')[-1] }}"><button>Download Incident Report</button></a>
+</div>
+{% endif %}
+{% endif %}
+</div>
+
+{% if prob_data %}
+<script>
+let data={{ prob_data|tojson }};
+
+new Chart(document.getElementById("pie"),{
+    type:"pie",
+    data:{
+        labels:data.map(x=>x[0]),
+        datasets:[{
+            data:data.map(x=>x[1]),
+            borderWidth:2
+        }]
+    },
+    options:{
+        responsive:true,
+        maintainAspectRatio:true,
+        aspectRatio:1
+    }
+});
+</script>
+{% endif %}
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incident Reports</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>🛡️ AI IDS</h2>
+    <a href="/dashboard">Dashboard</a>
+    <a href="/analyzer">Analyzer</a>
+    <a href="/reports">Reports</a>
+    <a href="/research">Research Lab</a>
+
+</div>
+
+<div class="main reports-page">
+    <h1>Incident Report Archive</h1>
+
+    <div class="card reports-card">
+        <table width="100%" cellpadding="10">
+            <tr style="color:#38bdf8">
+                <th align="left">Report File</th>
+                <th align="right">Download</th>
+            </tr>
+            {% for r in reports %}
+            <tr>
+                <td>{{ r }}</td>
+                <td align="right">
+                    <a href="/download/{{ r }}"><button>Download</button></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
