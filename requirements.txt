@@ -1,0 +1,11 @@
+flask
+pandas
+numpy
+joblib
+scikit-learn
+shap
+matplotlib
+reportlab
+gunicorn
+
+
