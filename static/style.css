@@ -1,0 +1,214 @@
+body{
+    margin:0;
+    font-family:"Segoe UI",sans-serif;
+    background:linear-gradient(135deg,#020617,#020617,#020617);
+    color:#e2e8f0;
+    overflow-x:hidden;
+    min-height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+    width:220px;
+    height:100vh;
+    position:fixed;
+    background:#020617;
+    padding:20px;
+}
+.sidebar h2{color:#38bdf8;}
+.sidebar a{
+    display:block;
+    color:#cbd5f5;
+    padding:10px;
+    text-decoration:none;
+    margin:10px 0;
+    border-radius:6px;
+}
+.sidebar a:hover{background:#1e293b}
+
+/* MAIN CONTAINER FOR ALL PAGES */
+.main{
+    margin-left:220px;
+    padding:25px;
+    max-width:calc(100vw - 220px);
+    overflow-x:hidden;
+}
+
+/* Buttons */
+button,.btn{
+    background:#38bdf8;
+    color:#020617;
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+.btn.red{background:#ef4444}
+
+/* Cards */
+.cards{display:flex;justify-content:center;gap:20px;margin-top:25px}
+.card{
+    background:#020617;
+    padding:20px;
+    border-radius:14px;
+    box-shadow:0 0 20px rgba(56,189,248,0.12);
+}
+
+/* Center Live Zone */
+.center-zone{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:80px;
+    margin:60px 0;
+}
+
+/* Radar */
+.radar{
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    border:2px solid #38bdf8;
+    background:radial-gradient(circle,#0ea5e933 10%,transparent 60%);
+    position:relative;
+    overflow:hidden;
+}
+.radar:before{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:conic-gradient(from 0deg,#38bdf8 0deg,transparent 70deg);
+    animation:spin 2s linear infinite;
+}
+.radar.pause:before{animation-play-state:paused}
+@keyframes spin{100%{transform:rotate(360deg)}}
+
+/* Live Analyzer Card */
+.live-card{
+    width:340px;
+    padding:20px;
+    background:rgba(0,0,0,.6);
+    border-radius:16px;
+    box-shadow:0 0 25px #38bdf8;
+}
+
+/* Terminal */
+.terminal{
+    background:black;
+    color:#22c55e;
+    font-family:monospace;
+    padding:12px;
+    height:140px;
+    overflow:hidden;
+    border-radius:10px;
+    margin-top:10px;
+    font-size:13px;
+}
+
+/* Stats */
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    margin:30px;
+}
+.stat{
+    background:rgba(0,0,0,.6);
+    padding:20px;
+    border-radius:12px;
+    width:130px;
+    text-align:center;
+    font-size:18px;
+}
+
+/* XAI Pages */
+.xai-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:30px;
+    width:100%;
+    margin-top:40px;
+}
+.xai-card{
+    width:100%;
+    min-height:520px;
+    background:rgba(0,0,0,.6);
+    padding:25px;
+    border-radius:16px;
+}
+
+/* DASHBOARD PAGE ONLY */
+.dashboard-page{
+    margin-left:220px;
+    padding:25px;
+    width:calc(100vw - 220px);
+    overflow-x:hidden;
+}
+
+/* Only dashboard charts */
+.dashboard-page canvas{
+    width:100% !important;
+    height:350px !important;
+}
+
+/* Prevent zoom on non-dashboard pages */
+.xai-card canvas{
+    max-width:100% !important;
+    height:auto !important;
+}
+/* ANALYZER PAGE ONLY */
+.analyzer-page .xai-grid{
+    grid-template-columns: 1fr 1fr;
+}
+
+.analyzer-page .xai-card{
+    min-height:380px;
+    padding:20px;
+}
+
+.analyzer-page canvas{
+    height:260px !important;
+}
+
+.analyzer-page img{
+    max-height:260px;
+    width:100%;
+    object-fit:contain;
+}
+/* Restore perfect Analyzer pie shape */
+.analyzer-page #pie{
+    max-width:320px !important;
+    margin:auto;
+    display:block;
+}
+/* Restore Research Lab chart size */
+.research-page canvas{
+    max-width:600px !important;
+    height:300px !important;
+    margin:auto;
+    display:block;
+}
+/* REPORTS PAGE FIX */
+.reports-page{
+    max-width:none !important;
+    padding-right:60px;
+}
+
+.reports-page table{
+    width:100%;
+}
+
+.reports-page td{
+    white-space:nowrap;
+}
+
+.reports-page a button{
+    min-width:110px;
+}
+/* REPORTS CARD FIX */
+.reports-card{
+    width:100%;
+    max-width:none;
+}
